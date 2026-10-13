@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Matemático Interactivo</title>
+    <style>
+
+    /* Importación de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        /* Clases auxiliares para Roboto Mono y Roboto */
+        .roboto-mono {
+            
+            font-family: "Roboto Mono", monospace;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .roboto {
+            font-family: "Roboto", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 10px;
+            color: #222;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #c0392b;
+            cursor: pointer;
+            border-bottom: 2px solid #6d0f0f;
+            padding-bottom: 5px;
+            .element {
+                animation:
+                move-right 5s,
+                change-color 5s;
+            }
+        }
+
+        .subtitulo {
+            font-size: 18px;
+            color: #2980b9;
+            margin-top: 25px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 16px;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* Lista de entradas cargadas dinámicamente */
+        #lista-entradas {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #lista-entradas li {
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #lista-entradas li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #lista-entradas a {
+            color: #1a5276;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #lista-entradas a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .fecha-post {
+            display: inline-block;
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-left: 8px;
+        }
+
+        .resumen-post {
+            margin: 8px 0 0 0;
+            background-color: transparent;
+            padding: 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Clases auxiliares para elementos interactivos */
+        ul.interactivo {
+            background-color: #fafafa;
+            padding: 15px 30px;
+            border: 1px solid #ddd;
+        }
+
+        ul.interactivo li {
+            margin: 5px 0;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .oculto {
+            display: none;
+        }
+
+        .resaltado {
+            background-color: #d4efdf;
+            color: #196f3d;
+        }
+
+        .cambio-color {
+            color: #4b130d;
+        }
+        @keyframes fadeUp { /*keyframes es para hacer una animación personalizada, tipo el cómo se verá*/
+            from {opacity: 0; transform: translateY(20px);} /*translateY es para moverle en dirección y*/
+            to {opacity: 1; transform: translateY(0);} /*opacity es para la opacidad ahh...(transparencia)*/
+        }
+
+        .fade {
+            animation: fadeUp 5s; /*esto es la duración*/
+        }
+        @keyframes typing { /*lo mismo pero este es para hacer efecto de escribir*/
+            from {width: 0;} /* este es el ancho que le damos al efecto*/
+            to {width: 100%;}
+        }
+        @keyframes blink {
+        from, to {border-right-color: transparent;} /*es el cursor que va pasando haciendo el efecto de parpadeo*/
+        40% {border-right-color: #222;}
+        }
+        .type {
+            overflow: hidden;           /* recorta el texto que aún no se escribe */
+            white-space: nowrap;        /* evita que el texto salte de línea */
+            border-right: 2px solid #570101; /* el cursor que se despliega */
+            animation: typing 5s steps(10),
+            blink .10s;
+        }
+        .square {
+        background: linear-gradient(to left, #6d0f0f, #e77366);
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="titulo" onclick="cambiarColorTitulo()">Blog Matemático Interactivo</h1>
+
+    <h2 class="subtitulo">Entradas del Blog</h2>
+    
+    <!-- Aquí JavaScript inyectará las entradas desde posts.js -->
+    <ul id="lista-entradas"></ul>
+
+    <h2 class="subtitulo">Recursos y Conceptos Básicos</h2>
+
+    <p onclick="alternarLista('conceptos')" style="cursor: pointer;">
+        Conceptos Rápidos (Haz clic para mostrar u ocultar)
+    </p>
+
+    <ul id="conceptos" class="interactivo oculto">
+        <li onclick="resaltarElemento(this)">Álgebra: Manipulación de símbolos y ecuaciones.</li>
+        <li onclick="resaltarElemento(this)">Geometría: Estudio de las propiedades de figuras y espacios.</li>
+        <li onclick="resaltarElemento(this)">Cálculo: Análisis del cambio y del movimiento.</li>
+        <li onclick="resaltarElemento(this)">Estadística: Análisis y tratamiento de datos.</li>
+    </ul>
+
+    <!-- Archivo de configuración que contiene el arreglo de entradas -->
+    <script src="posts.js"></script>
+
+    <script>
+        // Cargar dinámicamente las entradas definidas en posts.js
+        const contenedorLista = document.getElementById('lista-entradas');
+
+        if (typeof publicaciones !== 'undefined' && publicaciones.length > 0) {
+            publicaciones.forEach(post => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="entrada.html?id=${post.id}">${post.titulo}</a>
+                    <span class="fecha-post">${post.fecha}</span>
+                    <p class="resumen-post">${post.resumen}</p>
+                `;
+                contenedorLista.appendChild(li);
+            });
+        } else {
+            contenedorLista.innerHTML = '<li>No hay entradas publicadas aún.</li>';
+        }
+
+        // Funciones de interacción rápida
+        function cambiarColorTitulo() {
+            var titulo = document.getElementById('titulo');
+            titulo.classList.toggle('cambio-color');
+        }
+
+        function alternarLista(id) {
+            var lista = document.getElementById(id);
+            lista.classList.toggle('oculto');
+        }
+
+        function resaltarElemento(elemento) {
+            elemento.classList.toggle('resaltado');
+        }
+    </script>
+</body>
+</html>

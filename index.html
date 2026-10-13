@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Matemático Interactivo</title>
+    <style>
+
+    /* Importación de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        
+        /* Clases auxiliares para Roboto Mono y Roboto */
+        .roboto-mono {
+            font-family: "Roboto Mono", monospace;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .roboto {
+            font-family: "Roboto", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+        }
+
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            max-width: 700px;
+            margin:20px auto;
+            padding:10px;
+            color:#222;
+            background-color: antiquewhite;
+        }
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #c0392b;
+            cursor: pointer;
+            border-bottom: 2px solid #6d0f0f;
+            padding-bottom: 5px;
+            .element {
+                animation:
+                move-right 5s,
+                change-color 5s;
+            }
+        }
+        p {
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: help;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;           /* quita el espacio entre celdas */
+            border: 1px solid #944848;
+            border-radius: 10px; /*esto redondea las esquinas*/
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        th {
+            background-color: #da794d;
+            color: white;
+            text-align: left;
+        }
+
+        ul,ol {
+            background-color: #fafafa;
+            padding: 15px 30px;
+            border: 1px solid #ddd;
+        }
+
+        li {
+            margin: 5px 0;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .oculto {
+            display: none;
+        }
+
+        .resaltado {
+            background: linear-gradient(to left, #f8af4a, #f1e78b);
+            color: #664848;
+        }
+
+        .cambio-color {
+            color: #4b130d;
+        }
+        @keyframes fadeUp { /*keyframes es para hacer una animación personalizada, tipo el cómo se verá*/
+            from {opacity: 0; transform: translateY(20px);} /*translateY es para moverle en dirección y*/
+            to {opacity: 1; transform: translateY(0);} /*opacity es para la opacidad ahh...(transparencia)*/
+        }
+
+        .fade {
+            animation: fadeUp 5s; /*esto es la duración*/
+        }
+        @keyframes typing { /*lo mismo pero este es para hacer efecto de escribir*/
+            from {width: 0;} /* este es el ancho que le damos al efecto*/
+            to {width: 100%;}
+        }
+        @keyframes blink {
+        from, to {border-right-color: transparent;} /*es el cursor que va pasando haciendo el efecto de parpadeo*/
+        40% {border-right-color: #222;}
+        }
+        .type {
+            overflow: hidden;           /* recorta el texto que aún no se escribe */
+            white-space: nowrap;        /* evita que el texto salte de línea */
+            border-right: 2px solid #570101; /* el cursor que se despliega */
+            animation: typing 5s steps(10),
+            blink .10s;
+        }
+        .square {
+        background: linear-gradient(to left, #6d0f0f, #e77366);
+        }
+    </style>
+</head>
+<body>
+    <h1 id="titulo" class="fade" onclick="cambiarColorTitulo()">Blog Matemático Interactivo</h1>
+    <p class= "type" onclick="alternarLista('conceptos')">
+Conceptos Básicos
+    </p>
+    <ul class="square" id="conceptos">
+        <li onclick="resaltarElemento(this)">Álgebra: Manipulación de símbolos y ecuaciones.</li>
+        <li onclick="resaltarElemento(this)">Geometría: Estudio de las propiedades de figuras y espacios.</li>
+        <li onclick="resaltarElemento(this)">Cálculo: Análisis del cambio y del movimiento.</li>
+        <li onclick="resaltarElemento(this)">Estadística: Análisis y tratamiento de datos.</li>
+    </ul>
+    <p class="type" onclick="alternarLista('formulas')">
+    Tabla de Fórmulas </p>
+    <table id="formulas">
+        <tr>
+            <th>Tema</th>
+            <th>Fórmula</th>
+        </tr>
+    <tr class="square">
+        <td onclick="resaltarElemento(this)">Área del triángulo</td>
+        <td onclick="resaltarElemento(this)">Base por altura dividido entre 2</td>
+    </tr>
+    <tr class="square">
+        <td onclick="resaltarElemento(this)">Teorema de Pitágoras</td>
+        <td onclick="resaltarElemento(this)">a elevado al cuadrado más b elevado al cuadrado igual a c elevado al cuadrado</td>
+    </tr>
+    <tr class="square">
+        <td onclick="resaltarElemento(this)">Perímetro del círculo</td>
+        <td onclick="resaltarElemento(this)">2 por Pi por radio</td>
+    </tr>
+    </table>
+    <p class= "type" onclick="alternarLista('pasos')">
+    Pasos para resolver un problema
+    </p>
+    <ol class="square" id="pasos">
+        <li onclick="resaltarElemento(this)">Comprender el problema planteado.</li>
+        <li onclick="resaltarElemento(this)">Trazar un plan o seleccionar la fórmula.</li>
+        <li onclick="resaltarElemento(this)">Ejecutar las operaciones requeridas.</li>
+        <li onclick="resaltarElemento(this)">Revisar y verificar la solución.</li>
+    </ol>
+    <script>
+    function cambiarColorTitulo() {
+    var titulo = document.getElementById('titulo');
+    titulo.classList.toggle('cambio-color');
+    }
+
+    function alternarLista(id) {
+    var lista = document.getElementById(id);
+    lista.classList.toggle('oculto');
+    }
+
+    function resaltarElemento(elemento) {
+     elemento.classList.toggle('resaltado');
+    }
+    </script>
+</body>
+</html>
