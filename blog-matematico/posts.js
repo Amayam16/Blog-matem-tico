@@ -8,9 +8,16 @@ const publicaciones = [
   },
    {
     id: "0",
-    titulo: "Factorización 1",
+    titulo: "Factorización I",
     archivo: "entradas/factorizacion.js",
     fecha: "2026-10-15",
-    resumen: "Factorización y sus tipos."
+    resumen: "Factorización I y sus tipos."
+  },
+   {
+    id: "1",
+    titulo: "Factorización II",
+    archivo: "entradas/factorizacion.js",
+    fecha: "2026-10-15",
+    resumen: "Factorización II y sus tipos."
   }
 ];
