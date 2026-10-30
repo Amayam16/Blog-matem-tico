@@ -19,5 +19,12 @@ const publicaciones = [
     archivo: "entradas/factorizacion.js",
     fecha: "2026-10-15",
     resumen: "Factorización II y sus tipos."
+  },
+  {
+    id: "2",
+    titulo: "Ecuación de primer grado",
+    archivo: "entradas/ecuacion1.js",
+    fecha: "2026-10-27",
+    resumen: "ecuaciones de primer grado y sus tipos."
   }
 ];
