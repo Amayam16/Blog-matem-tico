@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="titulo-pagina">Cargando... - Blog Matemático</title>
+     <link rel="icon" href="gatito.png" type="image/png">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
         body {
-            font-family: Arial, sans-serif;
+            font-family:'Roboto', Arial, sans-serif;
             max-width: 700px;
             margin: 20px auto;
             padding: 10px;
@@ -22,13 +24,44 @@
             text-decoration: none;
             font-weight: bold;
         }
+        /* ---------- Keyframes ---------- */
+        @keyframes fadeUp {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .fade {
+            animation: fadeUp 5s;
+        }
+
+        .fade-rapido {
+            animation: fadeUp 1s both;
+        }
+
+        @keyframes typing {
+            from {width: 0;}
+            to {width: 100%;}
+        }
+
+        @keyframes blink {
+            from, to {border-right-color: transparent;}
+            40% {border-right-color: #500d0d;}
+        }
+
+        .type {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #761a22;
+            animation: typing 5s steps(10),
+                       blink .10s;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <a href="index.html" class="volver">← Volver al índice</a>
-        <h1 id="titulo-entrada">Cargando título...</h1>
+        <h1 id="titulo-entrada" class="fade">Cargando título...</h1>
         <small id="fecha-entrada"></small>
     </header>
 

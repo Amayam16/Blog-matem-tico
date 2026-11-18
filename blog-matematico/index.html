@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Matemático Interactivo</title>
+    <link rel="icon" href="gatito.png" type="image/png">
     <style>
+        
 
     /* Importación de Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
@@ -31,6 +33,7 @@
             margin: 20px auto;
             padding: 10px;
             color: #222;
+            
         }
 
         h1 {
@@ -39,11 +42,11 @@
             cursor: pointer;
             border-bottom: 2px solid #6d0f0f;
             padding-bottom: 5px;
-            .element {
+            /*.element {
                 animation:
                 move-right 5s,
                 change-color 5s;
-            }
+            }*/
         }
 
         .subtitulo {
@@ -65,6 +68,8 @@
         #lista-entradas {
             list-style-type: none;
             padding: 0;
+            border: none;
+            background: transparent;
         }
 
         #lista-entradas li {
@@ -73,6 +78,7 @@
             border-radius: 6px;
             padding: 15px;
             margin-bottom: 12px;
+            cursor: default;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -110,9 +116,10 @@
 
         /* Clases auxiliares para elementos interactivos */
         ul.interactivo {
-            background-color: #fafafa;
+            /*background-color: #fafafa;*/
             padding: 15px 30px;
             border: 1px solid #ddd;
+            border-radius: 6px;
         }
 
         ul.interactivo li {
@@ -126,13 +133,14 @@
         }
 
         .resaltado {
-            background-color: #d4efdf;
-            color: #196f3d;
+            background: linear-gradient(to left, #f8af4a, #f1e78b);
+            color: #664848;
         }
 
         .cambio-color {
             color: #4b130d;
         }
+        /*-------- Keyframes --------*/
         @keyframes fadeUp { /*keyframes es para hacer una animación personalizada, tipo el cómo se verá*/
             from {opacity: 0; transform: translateY(20px);} /*translateY es para moverle en dirección y*/
             to {opacity: 1; transform: translateY(0);} /*opacity es para la opacidad ahh...(transparencia)*/
@@ -141,13 +149,17 @@
         .fade {
             animation: fadeUp 5s; /*esto es la duración*/
         }
+        /* Versión corta para las tarjetas de entradas */
+        .fade-rapido {
+            animation: fadeUp 1s both; /* both: se queda invisible durante el delay */
+        }
         @keyframes typing { /*lo mismo pero este es para hacer efecto de escribir*/
             from {width: 0;} /* este es el ancho que le damos al efecto*/
             to {width: 100%;}
         }
         @keyframes blink {
-        from, to {border-right-color: transparent;} /*es el cursor que va pasando haciendo el efecto de parpadeo*/
-        40% {border-right-color: #222;}
+            from, to {border-right-color: transparent;} /*es el cursor que va pasando haciendo el efecto de parpadeo*/
+            40% {border-right-color: #222;}
         }
         .type {
             overflow: hidden;           /* recorta el texto que aún no se escribe */
@@ -158,21 +170,69 @@
         }
         .square {
         background: linear-gradient(to left, #6d0f0f, #e77366);
+        color: #fff;
+        }
+        @keyframes degradado {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .square-animado {
+            background: linear-gradient(90deg, #6d0f0f, #e77366, #6d0f0f);
+            background-size: 200% 200%;
+            animation: degradado 6s ease infinite;
+            color: #fff;
+        }
+            /* Tarjeta de herramientas */
+        .herramienta {
+            display: block;
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 12px;
+            color: #1a5276;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .herramienta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .herramienta strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .herramienta span {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #555;
         }
     </style>
 </head>
 <body>
 
-    <h1 id="titulo" onclick="cambiarColorTitulo()">Blog Matemático Interactivo</h1>
+    <h1 id="titulo" class= "fade"onclick="cambiarColorTitulo()">Blog Matemático Interactivo</h1>
 
     <h2 class="subtitulo">Entradas del Blog</h2>
     
     <!-- Aquí JavaScript inyectará las entradas desde posts.js -->
     <ul id="lista-entradas"></ul>
 
+    <h2 class="subtitulo">Herramientas</h2>
+
+    <a class="herramienta" href="graficador.html">
+    <strong>Graficador de Matrices</strong>
+    <span>Convierte una matriz en imagen y aplícale operaciones matriciales.</span>
+    </a>
+
     <h2 class="subtitulo">Recursos y Conceptos Básicos</h2>
 
-    <p onclick="alternarLista('conceptos')" style="cursor: pointer;">
+    <p class="type" onclick="alternarLista('conceptos')" style="cursor: pointer;">
         Conceptos Rápidos (Haz clic para mostrar u ocultar)
     </p>
 
@@ -191,8 +251,10 @@
         const contenedorLista = document.getElementById('lista-entradas');
 
         if (typeof publicaciones !== 'undefined' && publicaciones.length > 0) {
-            publicaciones.forEach(post => {
+            publicaciones.forEach((post, i) => {
                 const li = document.createElement('li');
+                li.className = 'fade-rapido';
+                li.style.animationDelay = (i * 0.2) + 's'; // cada entrada aparece un poco después
                 li.innerHTML = `
                     <a href="entrada.html?id=${post.id}">${post.titulo}</a>
                     <span class="fecha-post">${post.fecha}</span>
